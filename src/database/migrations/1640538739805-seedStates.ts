@@ -4,10 +4,10 @@ export class seedStates1640538739805 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(
-            `insert into states("name", acronyms ) values ('Acre', 'AC'),('Alagoas', 'AL'),('Amazonas', 'AM'),('Amapá', 'AP'),('Bahia', 'BA'),('Ceará', 'CE'),('Distrito Federal', 'DF'),
-            ('Espírito Santo', 'ES'),('Goiás', 'GO'),('Maranhão', 'MA'),('Minas Gerais', 'MG'),('Mato Grosso do Sul', 'MS'),('Mato Grosso', 'MT'),('Pará', 'PA'),('Paraíba', 'PB'),
-            ('Pernambuco', 'PE'),('Piauí', 'PI'),('Paraná', 'PR'),('Rio de Janeiro', 'RJ'),('Rio Grande do Norte', 'RN'),('Rondônia', 'RO'),('Roraima', 'RR'),('Rio Grande do Sul', 'RS'),
-            ('Santa Catarina', 'SC'),('Sergipe', 'SE'),('São Paulo', 'SP'),('Tocantins', 'TO'),('Exterior', 'EX');`,
+            `insert into states("name", acronyms ) values ('ACRE', 'AC'),('ALAGOAS', 'AL'),('AMAZONAS', 'AM'),('AMAPÁ', 'AP'),('BAHIA', 'BA'),('CEARÁ', 'CE'),('DISTRITO FEDERAL', 'DF'),
+            ('ESPÍRITO SANTO', 'ES'),('GOIÁS', 'GO'),('MARANHÃO', 'MA'),('MINAS GERAIS', 'MG'),('MATO GROSSO DO SUL', 'MS'),('MATO GROSSO', 'MT'),('PARÁ', 'PA'),('PARAÍBA', 'PB'),
+            ('PERNAMBUCO', 'PE'),('PIAUÍ', 'PI'),('PARANÁ', 'PR'),('RIO DE JANEIRO', 'RJ'),('RIO GRANDE DO NORTE', 'RN'),('RONDÔNIA', 'RO'),('RORAIMA', 'RR'),('RIO GRANDE DO SUL', 'RS'),
+            ('SANTA CATARINA', 'SC'),('SERGIPE', 'SE'),('SÃO PAULO', 'SP'),('TOCANTINS', 'TO'),('EXTERIOR', 'EX');`,
         );
     }
 
