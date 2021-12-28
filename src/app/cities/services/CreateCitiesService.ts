@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import CitiesRepository from "../repositories/CitiesRepository";
+import ICitiesRepository from '../repositories/interface/ICitiesRepository';
 
 interface Request {
   name: string;
@@ -10,27 +10,25 @@ interface Request {
 class CreateCitiesService {
   constructor(
     @inject('CitiesRepository')
-    private citiesRepository: CitiesRepository,
+    private citiesRepository: ICitiesRepository,
   ){}
   
   public async execute({name, stateId}: Request): Promise<any> {
-    try {
 
-      const findCityAndStateIsSame = await this.citiesRepository.findByCityAndState({name, stateId});
+    const nameUpper = name.toUpperCase();
 
-      if(findCityAndStateIsSame.length > 0) {
-        return {message: `Cidade: ${name} já está cadastrada para o estado: ${findCityAndStateIsSame[0].acronyms}`};
-      }
+    const findCityAndStateIsSame = await this.citiesRepository.findByCityAndState({name: nameUpper, stateId});
 
-      const city = await this.citiesRepository.create({name, stateId});
-
-      await this.citiesRepository.save(city);
-
-      return {city, message: 'Cidade incluida com sucesso'};
-
-    } catch (err) {
-      return err;
+    if(findCityAndStateIsSame.length > 0) {
+      return {message: `Cidade: ${nameUpper} já está cadastrada para o estado: ${findCityAndStateIsSame[0].acronyms}`};
     }
+
+    const city = await this.citiesRepository.create({name: nameUpper, stateId});
+
+    await this.citiesRepository.save(city);
+
+    return {city, message: 'Cidade incluida com sucesso'};
+
   }
 }
 

@@ -1,26 +1,23 @@
 import { injectable, inject } from 'tsyringe';
-import CitiesRepository from "../repositories/CitiesRepository";
+import ICitiesRepository from '../repositories/interface/ICitiesRepository';
 
 @injectable()
 class ListCitiesService {
   constructor(
     @inject('CitiesRepository')
-    private citiesRepository: CitiesRepository,
+    private citiesRepository: ICitiesRepository,
   ){}
 
   public async execute(city: string, state: string): Promise<any> {
-    try {
-      const listCity = await this.citiesRepository.listCityAndState(city, state);
 
-      if(listCity.length === 0) {
-        return {message: 'Cidade não encontrada'};
-      }
+    const listCity = await this.citiesRepository.listCityAndState(city.toUpperCase(), state.toUpperCase());
 
-      return listCity;
-      
-    } catch (err) {
-      return err;
+    if(listCity.length === 0) {
+      return {message: 'Nenhum resultado foi encontrado para está pesquisa'};
     }
+
+    return listCity;
+
   }
 }
 

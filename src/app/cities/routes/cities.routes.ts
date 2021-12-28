@@ -10,7 +10,7 @@ citiesRoutes.post('/', async (request, response) => {
   try {
     let {name, stateId} = request.body;
 
-    const createdCity =  container.resolve(CreateCitiesService);
+    const createdCity = container.resolve(CreateCitiesService);
 
     name = name.toUpperCase();
 
@@ -19,7 +19,7 @@ citiesRoutes.post('/', async (request, response) => {
       stateId
     });
 
-    return response.json(city);
+    return response.json(city)
 
   } catch (err) {
     return response.status(400).json({error: err.message});
