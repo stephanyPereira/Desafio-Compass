@@ -1,15 +1,15 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('cities')
 class Cities {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+    id: number;
 
   @Column()
-  name: string;
+    name: string;
 
   @Column()
-  stateId: number;
+    stateId: number;
 }
 
 export default Cities;

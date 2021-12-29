@@ -285,7 +285,7 @@
                       "type": "string"
                     }
                   }
-                }, 
+                },
                 "example": {
                   "city": {
                     "name": "PORTO ALEGRE",
@@ -295,14 +295,14 @@
                 }
               }
             }
-          }, 
+          },
           "400": {
             "description": "Retorna uma mensagem de erro",
             "content": {
               "application/json": {
                 "example": {
                   "message": "Cidade: PORTO ALEGRE já está cadastrada para o estado: RS"
-                }                  
+                }
               }
             }
           }

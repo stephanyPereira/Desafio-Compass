@@ -5,27 +5,27 @@ import ListCitiesService from '../services/ListCitiesService';
 
 export default class CitiesController {
   public async create(req: Request, res: Response): Promise<Response> {
-    const {nameCity, stateId} = req.body;
+    const { nameCity, stateId } = req.body;
 
     const createdCity = container.resolve(CreateCitiesService);
 
     const city = await createdCity.execute({
       nameCity,
-      stateId
+      stateId,
     });
 
     return res.json(city);
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
-    let {city, state} = req.query;
+    let { city, state } = req.query;
 
-    const listCity =  container.resolve(ListCitiesService);
+    const listCity = container.resolve(ListCitiesService);
 
-    if(city === undefined) {
+    if (city === undefined) {
       city = '';
-    } 
-    
+    }
+
     if (state === undefined) {
       state = '';
     }

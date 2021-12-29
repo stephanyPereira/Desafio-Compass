@@ -6,10 +6,15 @@ const statesController = new StatesController();
 
 const statesRoutes = Router();
 
-statesRoutes.get('/', celebrate({
-  [Segments.QUERY]: {
-    state: Joi.string()
-  },
-}), statesController.index);
+statesRoutes.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: {
+      nameState: Joi.string(),
+    },
+  }),
+
+  statesController.index,
+);
 
 export default statesRoutes;

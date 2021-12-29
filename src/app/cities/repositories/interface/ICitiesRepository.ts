@@ -1,8 +1,10 @@
-import Cities from "../../models/Cities";
+/* eslint-disable @typescript-eslint/no-extra-semi */
+/* eslint-disable @typescript-eslint/naming-convention */
+import Cities from '../../models/Cities';
 
 interface Request {
   name: string;
-  stateId: number; 
+  stateId: number;
 }
 interface findByCityAndState {
   id: number;
@@ -17,8 +19,9 @@ interface listCityAndState {
 }
 
 export default interface ICitiesRepository {
-  findByCityAndState({name, stateId}: Request): Promise<findByCityAndState[]>;
+  findByCityAndState({ name, stateId }: Request): Promise<findByCityAndState[]>;
   listCityAndState(city: string, state: string): Promise<listCityAndState[]>;
-  create({name, stateId}: Request): Promise<Cities>;
+  create({ name, stateId }: Request): Promise<Cities>;
   save(city: Cities) : Promise<Cities>;
+// eslint-disable-next-line semi
 };

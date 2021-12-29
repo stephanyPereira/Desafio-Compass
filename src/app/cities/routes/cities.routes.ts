@@ -1,10 +1,7 @@
 import { Router } from 'express';
-import CreateCitiesService from '../services/CreateCitiesService';
-import ListCitiesService from '../services/ListCitiesService';
-
-import { container } from 'tsyringe';
-import CitiesController from '../controllers/CitiesController';
 import { celebrate, Segments, Joi } from 'celebrate';
+
+import CitiesController from '../controllers/CitiesController';
 
 const citiesRoutes = Router();
 
@@ -21,11 +18,16 @@ citiesRoutes.post(
   citiesController.create,
 );
 
-citiesRoutes.get('/', celebrate({
-  [Segments.QUERY]: {
-    city: Joi.string(),
-    state: Joi.string()
-  },
-}), citiesController.index);
+citiesRoutes.get(
+  '/',
+  celebrate({
+    [Segments.QUERY]: {
+      city: Joi.string(),
+      state: Joi.string(),
+    },
+  }),
+
+  citiesController.index,
+);
 
 export default citiesRoutes;

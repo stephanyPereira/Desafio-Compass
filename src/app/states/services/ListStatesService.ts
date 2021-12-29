@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { injectable, inject } from 'tsyringe';
-import States from "../models/States";
-import StatesRepository from "../repositories/StatesRepository";
+import AppError from '../../../errors/AppError';
+import States from '../models/States';
+import StatesRepository from '../repositories/StatesRepository';
 
 interface StateReturn {
   state?: States[];
@@ -12,13 +14,15 @@ class ListSatesService {
   constructor(
     @inject('StatesRepository')
     private statesRepository: StatesRepository,
-  ){}
+  ) {}
+
   public async execute(nameState: string): Promise<StateReturn> {
     const state = await this.statesRepository.findStates(nameState.toUpperCase());
-    if(state.length == 0) {
-      return {message: 'Estado não encontrado. Por favor verifique o que foi enviado'}
+
+    if (state.length === 0) {
+      throw new AppError('Estado não encontrado. Por favor verifique o que foi enviado');
     }
-    return {state};
+    return { state };
   }
 }
 

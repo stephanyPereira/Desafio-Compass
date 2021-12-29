@@ -1,15 +1,15 @@
-import { createConnection, getConnection } from "typeorm";
-import ListStatesService from "./ListStatesService";
-import StatesRepository from "../repositories/StatesRepository";
+import { createConnection, getConnection } from 'typeorm';
+import ListStatesService from './ListStatesService';
+import StatesRepository from '../repositories/StatesRepository';
 
 let listStates: ListStatesService;
 let statesRepository: StatesRepository;
 
 describe('ListStates', () => {
   const state = [{
-    "id": 8,
-    "acronyms": "ES",
-    "name": "ESPÍRITO SANTO"
+    id: 8,
+    acronyms: 'ES',
+    name: 'ESPÍRITO SANTO',
   }];
 
   beforeAll(async () => {
@@ -24,7 +24,7 @@ describe('ListStates', () => {
     await defaultConnection.close();
   });
 
-  it('should be able to list the states without any parameters', async () => {   
+  it('should be able to list the states without any parameters', async () => {
     const states = await listStates.execute('');
 
     expect(states.state).toHaveLength(28);
@@ -42,9 +42,9 @@ describe('ListStates', () => {
     expect(states.state).toEqual(state);
   });
 
-  it('must be able to display a message if the sent parameter does not find any data in the database', async () => {   
+  it('must be able to display a message if the sent parameter does not find any data in the database', async () => {
     const states = await listStates.execute('esspírito santo');
 
-    expect(states).toEqual({message: 'Estado não encontrado. Por favor verifique o que foi enviado'});
+    expect(states).toEqual({ message: 'Estado não encontrado. Por favor verifique o que foi enviado' });
   });
-})
+});
