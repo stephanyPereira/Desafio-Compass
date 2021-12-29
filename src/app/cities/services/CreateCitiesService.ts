@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import AppError from '../../../errors/AppError';
 import ICitiesRepository from '../repositories/interface/ICitiesRepository';
 
 interface Request {
@@ -14,13 +15,13 @@ class CreateCitiesService {
   ){}
   
   public async execute({nameCity, stateId}: Request): Promise<any> {
-
+    
     const nameUpper = nameCity.toUpperCase();
 
     const findCityAndStateIsSame = await this.citiesRepository.findByCityAndState({name: nameUpper, stateId});
     
     if(findCityAndStateIsSame.length > 0) {
-      return {message: `Cidade: ${nameUpper} já está cadastrada para o estado: ${findCityAndStateIsSame[0].acronyms}`};
+      throw new AppError(`Cidade: ${nameUpper} já está cadastrada para o estado: ${findCityAndStateIsSame[0].acronyms}`);
     }
 
     const city = await this.citiesRepository.create({name: nameUpper, stateId});

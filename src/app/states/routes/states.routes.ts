@@ -1,25 +1,15 @@
 import { Router } from 'express';
-import { container } from 'tsyringe';
-import ListStatesService from '../services/ListStatesService';
+import { celebrate, Segments, Joi } from 'celebrate';
+import StatesController from '../controllers/StatesController';
+
+const statesController = new StatesController();
 
 const statesRoutes = Router();
 
-statesRoutes.get('/', async (request, response) => {
-  try {
-    let {nameState} = request.query;
-    const listStates = container.resolve(ListStatesService);
-
-    if(nameState === undefined) {
-      nameState = '';
-    }
-
-    const states = await listStates.execute(nameState.toString());
-    
-    return response.json(states);
-  } catch (err: any) {
-    return response.status(400).json({error: err.message}); 
-  }
-
-});
+statesRoutes.get('/', celebrate({
+  [Segments.QUERY]: {
+    state: Joi.string()
+  },
+}), statesController.index);
 
 export default statesRoutes;

@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe';
+import AppError from '../../../errors/AppError';
 import ICitiesRepository from '../repositories/interface/ICitiesRepository';
 
 @injectable()
@@ -13,7 +14,7 @@ class ListCitiesService {
     const listCity = await this.citiesRepository.listCityAndState(city.toUpperCase(), state.toUpperCase());
 
     if(listCity.length === 0) {
-      return {message: 'Nenhum resultado foi encontrado para está pesquisa'};
+      throw new AppError('Nenhum resultado foi encontrado');
     }
 
     return listCity;
