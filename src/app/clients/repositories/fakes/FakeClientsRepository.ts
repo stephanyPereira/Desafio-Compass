@@ -35,6 +35,20 @@ class FakeClientsRepository implements IClientsRepository {
 
     return client;
   }
+
+  findClients(nameClient?: string, idClient?: number): Promise<any> {
+    const clientsList: any = [];
+
+    if (this.clients.length > 0) {
+      if (nameClient && idClient) {
+        clientsList[0] = this.clients.find(
+          (client:any) => client.fullName.includes(nameClient) && client.id === idClient,
+        );
+      }
+    }
+
+    return clientsList;
+  }
 }
 
 export default FakeClientsRepository;

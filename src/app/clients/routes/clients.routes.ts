@@ -19,4 +19,6 @@ clientsRoutes.post(
   clientsController.create,
 );
 
+clientsRoutes.get('/', clientsController.index);
+
 export default clientsRoutes;

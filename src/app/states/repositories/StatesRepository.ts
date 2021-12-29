@@ -11,7 +11,7 @@ class StatesRepository {
     this.ormRepository = getRepository(States);
   }
 
-  async findStates(nameState: string): Promise<any> {
+  async findStates(nameState?: string): Promise<any> {
     const listStates = await this.ormRepository.find({ where: { name: Like(`%${nameState}%`) } });
 
     return listStates;

@@ -13,5 +13,6 @@ export default interface IClientsRepository {
     fullName, gender, birthDate, age, cityLive,
   }: IClients): Promise<Clients>;
   save(clients: Clients) : Promise<Clients>;
+  findClients(nameClient?: string, idClient?: number): Promise<any>;
   // eslint-disable-next-line semi
 }

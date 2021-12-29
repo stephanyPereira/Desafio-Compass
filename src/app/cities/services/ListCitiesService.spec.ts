@@ -34,7 +34,7 @@ describe('ListCitiesService', () => {
     });
 
     const list = await listCitiesServices.execute('Porto ', '');
-    expect(list[0].cidade).toContain('PORTO ALEGRE');
+    expect(list[0].nameCity).toEqual('PORTO ALEGRE');
   });
 
   it('should be able to return a message if you can\'t find the city in that state', async () => {
@@ -63,6 +63,6 @@ describe('ListCitiesService', () => {
     });
 
     const list = await listCitiesServices.execute('', 'Rio GRande do sul');
-    expect(list[0].estado).toContain('RIO GRANDE DO SUL');
+    expect(list[0].nameState).toEqual('RIO GRANDE DO SUL');
   });
 });

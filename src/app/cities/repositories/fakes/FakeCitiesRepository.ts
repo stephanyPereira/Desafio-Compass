@@ -197,8 +197,8 @@ class FakeCitiesRepository implements ICitiesRepository {
             state[i] = this.states.find((s:any) => s.id == town[0].stateId);
             citiesSelected[i] = {
               id: town[i].id,
-              cidade: town[i].name,
-              estado: state[i].name,
+              nameCity: town[i].name,
+              nameState: state[i].name,
             };
           }
         }
@@ -210,8 +210,8 @@ class FakeCitiesRepository implements ICitiesRepository {
             if (town.length > 0) {
               citiesSelected[i] = {
                 id: town[i].id,
-                cidade: town[i].name,
-                estado: state[i].name,
+                nameCity: town[i].name,
+                nameState: state[i].name,
               };
             }
           }
@@ -223,8 +223,8 @@ class FakeCitiesRepository implements ICitiesRepository {
             state[i] = this.states.find((s:any) => s.id == town[i].statedId);
             citiesSelected[i] = {
               id: town[i].id,
-              cidade: town[i].name,
-              estado: state[i].name,
+              nameCity: town[i].name,
+              nameState: state[i].name,
             };
           }
         }
