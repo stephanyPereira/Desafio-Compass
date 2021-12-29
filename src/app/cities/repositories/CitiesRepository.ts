@@ -44,6 +44,12 @@ class CitiesRepository {
     return cityAndState;
   }
 
+  async findCityById(cityId: number): Promise<any> {
+    const city = await this.ormRepository.find({ where: { id: cityId } });
+
+    return city;
+  }
+
   async create({ name, stateId }: Request): Promise<Cities> {
     const city = await this.ormRepository.create({ name, stateId });
 

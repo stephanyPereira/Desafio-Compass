@@ -1,6 +1,7 @@
 import { createConnection, getConnection } from 'typeorm';
 import ListStatesService from './ListStatesService';
 import StatesRepository from '../repositories/StatesRepository';
+import AppError from '../../../errors/AppError';
 
 let listStates: ListStatesService;
 let statesRepository: StatesRepository;
@@ -43,8 +44,6 @@ describe('ListStates', () => {
   });
 
   it('must be able to display a message if the sent parameter does not find any data in the database', async () => {
-    const states = await listStates.execute('esspírito santo');
-
-    expect(states).toEqual({ message: 'Estado não encontrado. Por favor verifique o que foi enviado' });
+    await expect(listStates.execute('esspírito santo')).rejects.toBeInstanceOf(AppError);
   });
 });

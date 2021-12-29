@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { injectable, inject } from 'tsyringe';
 import AppError from '../../../errors/AppError';
+import Cities from '../models/Cities';
 import ICitiesRepository from '../repositories/interface/ICitiesRepository';
 
 interface Request {
   nameCity: string;
   stateId: number;
+}
+
+interface IReturnCities {
+  city: Cities;
+  message: string;
 }
 
 @injectable()
@@ -15,7 +21,7 @@ class CreateCitiesService {
     private citiesRepository: ICitiesRepository,
   ) {}
 
-  public async execute({ nameCity, stateId }: Request): Promise<any> {
+  public async execute({ nameCity, stateId }: Request): Promise<IReturnCities> {
     const nameUpper = nameCity.toUpperCase();
 
     const findCityAndStateIsSame = await this.citiesRepository.findByCityAndState(

@@ -21,6 +21,7 @@ interface listCityAndState {
 export default interface ICitiesRepository {
   findByCityAndState({ name, stateId }: Request): Promise<findByCityAndState[]>;
   listCityAndState(city: string, state: string): Promise<listCityAndState[]>;
+  findCityById(cityId: number): Promise<Cities[]>;
   create({ name, stateId }: Request): Promise<Cities>;
   save(city: Cities) : Promise<Cities>;
 // eslint-disable-next-line semi

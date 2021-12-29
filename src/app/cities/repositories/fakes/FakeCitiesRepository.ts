@@ -16,7 +16,7 @@ interface findByCityAndState {
   nameState: string;
 }
 
-class CitiesRepository implements ICitiesRepository {
+class FakeCitiesRepository implements ICitiesRepository {
   private cities: any = [];
 
   private states: any = [{
@@ -234,6 +234,16 @@ class CitiesRepository implements ICitiesRepository {
     return citiesSelected;
   }
 
+  async findCityById(cityId: number): Promise<Cities[]> {
+    const town = [];
+
+    if (this.cities.length > 0) {
+      town[0] = this.cities.find((city:any) => city.id === cityId);
+    }
+
+    return town;
+  }
+
   async create({ name, stateId }: Request): Promise<Cities> {
     const city = new Cities();
 
@@ -253,4 +263,4 @@ class CitiesRepository implements ICitiesRepository {
   }
 }
 
-export default CitiesRepository;
+export default FakeCitiesRepository;

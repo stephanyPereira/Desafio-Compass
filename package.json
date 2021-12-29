@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "celebrate": "^15.0.0",
+    "date-fns": "^2.28.0",
     "express": "^4.17.2",
     "express-async-errors": "^3.1.1",
     "pg": "^8.7.1",
