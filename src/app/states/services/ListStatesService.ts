@@ -13,8 +13,8 @@ class ListSatesService {
     @inject('StatesRepository')
     private statesRepository: StatesRepository,
   ){}
-  public async execute(name: string): Promise<StateReturn> {
-    const state = await this.statesRepository.findStates(name);
+  public async execute(nameState: string): Promise<StateReturn> {
+    const state = await this.statesRepository.findStates(nameState.toUpperCase());
     if(state.length == 0) {
       return {message: 'Estado não encontrado. Por favor verifique o que foi enviado'}
     }

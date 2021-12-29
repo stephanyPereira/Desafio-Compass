@@ -8,20 +8,18 @@ const citiesRoutes = Router();
 
 citiesRoutes.post('/', async (request, response) => {
   try {
-    let {name, stateId} = request.body;
+    let {nameCity, stateId} = request.body;
 
     const createdCity = container.resolve(CreateCitiesService);
 
-    name = name.toUpperCase();
-
     const city = await createdCity.execute({
-      name,
+      nameCity,
       stateId
     });
 
     return response.json(city)
 
-  } catch (err) {
+  } catch (err: any) {
     return response.status(400).json({error: err.message});
   }
 
@@ -41,11 +39,11 @@ citiesRoutes.get('/', async (request, response) => {
       state = '';
     }
 
-    const retunCity = await listCity.execute(city.toString().toUpperCase(), state.toString().toUpperCase());
+    const retunCity = await listCity.execute(city.toString(), state.toString());
 
     return response.json(retunCity);
 
-  } catch (err) {
+  } catch (err: any) {
     return response.status(400).json({error: err});
   }
 })

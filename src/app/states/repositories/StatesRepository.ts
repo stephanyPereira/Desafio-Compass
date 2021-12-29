@@ -1,4 +1,4 @@
-import {createQueryBuilder, EntityRepository, getRepository, Like, Repository} from 'typeorm';
+import {EntityRepository, getRepository, Like, Repository} from 'typeorm';
 import States from '../models/States';
 
 @EntityRepository(States)
@@ -9,8 +9,8 @@ class StatesRepository {
     this.ormRepository = getRepository(States);
   }
 
-  async findStates(name: string): Promise<any> {
-    const listStates = await this.ormRepository.find({where: {name: Like(`%${name}%`)}});
+  async findStates(nameState: string): Promise<any> {
+    const listStates = await this.ormRepository.find({where: {name: Like(`%${nameState}%`)}});
     
     return listStates;
   }

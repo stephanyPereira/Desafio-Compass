@@ -1,0 +1,366 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Desafio Compass",
+    "description": "Serviço respomsável pelo cadastro de cidades e clientes",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/healthcheck": {
+      "get": {
+          "tags": [
+              "healthcheck"
+          ],
+          "summary": "Condição do serviço",
+          "operationId": "healthcheck",
+          "responses": {
+              "200": {
+                  "description": "Returna um status OK.",
+                  "content": {
+                      "application/json": {
+                          "example": [
+                              {
+                                  "status": "UP"
+                              }
+                          ]
+                      }
+                  }
+              }
+          }
+      }
+    },
+    "/version": {
+        "get": {
+            "tags": [
+                "version"
+            ],
+            "summary": "Versão do serviço",
+            "responses": {
+                "200": {
+                    "description": "Retorna a versão.",
+                    "content": {
+                        "application/json": {
+                            "example": [
+                                {
+                                    "version": "1.0.0"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/states/{nameState}": {
+      "parameters": [
+        {
+          "name": "nameState",
+          "in": "path",
+          "description": "Nome do Estado ou parte do mesmo",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "States"
+        ],
+        "summary": "Busca por estados",
+        "description": "Busca de estados para pegar o id e incluir na cidade",
+        "responses": {
+          "200": {
+            "description": "Lista com os Estados",
+            "content": {
+              "application/json": {
+                "example": {
+                  "state": [
+                      {
+                          "id": 1,
+                          "acronyms": "AC",
+                          "name": "ACRE"
+                      },
+                      {
+                          "id": 2,
+                          "acronyms": "AL",
+                          "name": "ALAGOAS"
+                      },
+                      {
+                          "id": 3,
+                          "acronyms": "AM",
+                          "name": "AMAZONAS"
+                      },
+                      {
+                          "id": 4,
+                          "acronyms": "AP",
+                          "name": "AMAPÁ"
+                      },
+                      {
+                          "id": 5,
+                          "acronyms": "BA",
+                          "name": "BAHIA"
+                      },
+                      {
+                          "id": 6,
+                          "acronyms": "CE",
+                          "name": "CEARÁ"
+                      },
+                      {
+                          "id": 7,
+                          "acronyms": "DF",
+                          "name": "DISTRITO FEDERAL"
+                      },
+                      {
+                          "id": 8,
+                          "acronyms": "ES",
+                          "name": "ESPÍRITO SANTO"
+                      },
+                      {
+                          "id": 9,
+                          "acronyms": "GO",
+                          "name": "GOIÁS"
+                      },
+                      {
+                          "id": 10,
+                          "acronyms": "MA",
+                          "name": "MARANHÃO"
+                      },
+                      {
+                          "id": 11,
+                          "acronyms": "MG",
+                          "name": "MINAS GERAIS"
+                      },
+                      {
+                          "id": 12,
+                          "acronyms": "MS",
+                          "name": "MATO GROSSO DO SUL"
+                      },
+                      {
+                          "id": 13,
+                          "acronyms": "MT",
+                          "name": "MATO GROSSO"
+                      },
+                      {
+                          "id": 14,
+                          "acronyms": "PA",
+                          "name": "PARÁ"
+                      },
+                      {
+                          "id": 15,
+                          "acronyms": "PB",
+                          "name": "PARAÍBA"
+                      },
+                      {
+                          "id": 16,
+                          "acronyms": "PE",
+                          "name": "PERNAMBUCO"
+                      },
+                      {
+                          "id": 17,
+                          "acronyms": "PI",
+                          "name": "PIAUÍ"
+                      },
+                      {
+                          "id": 18,
+                          "acronyms": "PR",
+                          "name": "PARANÁ"
+                      },
+                      {
+                          "id": 19,
+                          "acronyms": "RJ",
+                          "name": "RIO DE JANEIRO"
+                      },
+                      {
+                          "id": 20,
+                          "acronyms": "RN",
+                          "name": "RIO GRANDE DO NORTE"
+                      },
+                      {
+                          "id": 21,
+                          "acronyms": "RO",
+                          "name": "RONDÔNIA"
+                      },
+                      {
+                          "id": 22,
+                          "acronyms": "RR",
+                          "name": "RORAIMA"
+                      },
+                      {
+                          "id": 23,
+                          "acronyms": "RS",
+                          "name": "RIO GRANDE DO SUL"
+                      },
+                      {
+                          "id": 24,
+                          "acronyms": "SC",
+                          "name": "SANTA CATARINA"
+                      },
+                      {
+                          "id": 25,
+                          "acronyms": "SE",
+                          "name": "SERGIPE"
+                      },
+                      {
+                          "id": 26,
+                          "acronyms": "SP",
+                          "name": "SÃO PAULO"
+                      },
+                      {
+                          "id": 27,
+                          "acronyms": "TO",
+                          "name": "TOCANTINS"
+                      },
+                      {
+                          "id": 28,
+                          "acronyms": "EX",
+                          "name": "EXTERIOR"
+                      }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Estado não encontrado. Por favor verifique o que foi enviado"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cities": {
+      "post": {
+        "tags": [
+          "Cities"
+        ],
+        "summary": " Adcionar uma nova cidade",
+        "description": "Adicionar uma nova cidade",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nameCity": {
+                    "type": "string"
+                  },
+                  "stateId": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "nameCity": "Porto Alegre",
+                "stateId": 23
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mostra a cidade adicionada e uma mensagem de sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "stateId":{
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }, 
+                "example": {
+                  "city": {
+                    "name": "PORTO ALEGRE",
+                    "stateId": 23
+                  },
+                  "message": "Cidade incluida com sucesso"
+                }
+              }
+            }
+          }, 
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Cidade: PORTO ALEGRE já está cadastrada para o estado: RS"
+                }                  
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cities/{city}&{state}": {
+      "parameters": [
+        {
+          "name": "city",
+          "in": "path",
+          "description": "Nome da Cidade ou parte do mesmo",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "state",
+          "in": "path",
+          "description": "Nome do Estado ou parte do mesmo",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Cities"
+        ],
+        "summary": "Listar as cidades cadastradas",
+        "description": "Listar as cidades cadastradas",
+        "responses": {
+          "200": {
+            "description": "Lista das cidades",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "cidade": "PORTO ALEGRE",
+                    "estado": "RIO GRANDE DO SUL"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Nenhum resultado foi encontrado para está pesquisa"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import 'reflect-metadata';
 
 import express from 'express';
-import routes from './routes';
+import routes from './routes/routes';
+import utilsRoutes from './routes/utils.routes';
 
 import './database';
 import './container';
@@ -9,7 +10,8 @@ import './container';
 const server = express();
 
 server.use(express.json());
-server.use(routes);
+server.use('/', utilsRoutes);
+server.use('/', routes);
 
 
 server.listen(3333, () => {

@@ -6,17 +6,17 @@ const statesRoutes = Router();
 
 statesRoutes.get('/', async (request, response) => {
   try {
-    let {name} = request.query;
+    let {nameState} = request.query;
     const listStates = container.resolve(ListStatesService);
 
-    if(name === undefined) {
-      name = '';
+    if(nameState === undefined) {
+      nameState = '';
     }
 
-    const states = await listStates.execute(name.toString().toUpperCase());
+    const states = await listStates.execute(nameState.toString());
     
     return response.json(states);
-  } catch (err) {
+  } catch (err: any) {
     return response.status(400).json({error: err.message}); 
   }
 

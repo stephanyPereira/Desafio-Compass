@@ -1,6 +1,5 @@
 import { createConnection, getConnection } from "typeorm";
 import ListStatesService from "./ListStatesService";
-import { container } from 'tsyringe';
 import StatesRepository from "../repositories/StatesRepository";
 
 let listStates: ListStatesService;

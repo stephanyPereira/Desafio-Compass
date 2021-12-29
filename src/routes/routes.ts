@@ -1,7 +1,7 @@
 
 import { Router } from 'express';
-import statesRoutes from './app/states/routes/states.routes';
-import citiesRoutes from './app/cities/routes/cities.routes';
+import statesRoutes from '../app/states/routes/states.routes';
+import citiesRoutes from '../app/cities/routes/cities.routes';
 
 const routes = Router();
 
