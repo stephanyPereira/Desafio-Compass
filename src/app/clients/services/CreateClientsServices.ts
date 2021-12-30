@@ -4,12 +4,12 @@ import IClientsRepository from '../repositories/interface/IClientsRepository';
 import ICitiesRepository from '../../cities/repositories/interface/ICitiesRepository';
 import AppError from '../../../errors/AppError';
 import Clients from '../models/Clients';
+import calcularIdade from '../../../utils/calculateAge';
 
 interface IClients {
   fullName: string;
   gender: string;
   birthDate: Date;
-  age: number;
   cityLive: number;
 }
 
@@ -28,7 +28,7 @@ class CreateClientsService {
   ) {}
 
   public async execute({
-    fullName, gender, birthDate, age, cityLive,
+    fullName, gender, birthDate, cityLive,
   }: IClients): Promise<IReturnClient> {
     const fullNameUpper = fullName.toUpperCase();
     const genderUpper = gender.toUpperCase();
@@ -41,7 +41,11 @@ class CreateClientsService {
     }
 
     const client = await this.clientsRepository.create({
-      fullName: fullNameUpper, gender: genderUpper, birthDate: birthDateFormat, age, cityLive,
+      fullName: fullNameUpper,
+      gender: genderUpper,
+      birthDate: birthDateFormat,
+      age: calcularIdade(startOfHour(birthDate)),
+      cityLive,
     });
 
     await this.clientsRepository.save(client);

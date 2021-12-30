@@ -5,8 +5,8 @@ import Clients from '../models/Clients';
 interface IClients {
   fullName: string;
   gender: string;
-  birthDate: Date;
   age: number;
+  birthDate: Date;
   cityLive: number;
 }
 
@@ -42,12 +42,12 @@ class ClientsRepository {
   }
 
   async save(clients: Clients): Promise<Clients> {
-    this.ormRepository.save(clients);
-
-    return clients;
+    const result = await this.ormRepository.save(clients);
+    return result;
   }
 
-  async findClients(nameClient: string, idClient: number): Promise<IReturnClient> {
+  async findClients(nameClient: string, idClient: number): Promise<IReturnClient[]
+  > {
     const getFilters = (filters: any): any => {
       let query = '';
       const bindings = [];
@@ -66,9 +66,16 @@ class ClientsRepository {
     const { query, bindings } = getFilters({ nameClient, idClient });
 
     const client = await this.ormRepository.query(`select cl.id, cl."fullName", cl.gender, cl."birthDate", cl.age, cl."cityLive", c."name" as nameCity, c."stateId", s."name" as nameState, s.acronyms from clients cl join cities c on cl."cityLive" = c.id join states s on c."stateId" = s.id where 1=1
-      ${query}`, bindings);
+      ${query} order by cl.id`, bindings);
 
     return client;
+  }
+
+  async removeClient(id: number): Promise<void> {
+    const client = await this.ormRepository.createQueryBuilder().delete().from(Clients).where(`id = ${id}`)
+      .execute();
+
+    console.log(client);
   }
 }
 

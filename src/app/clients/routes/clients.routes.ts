@@ -12,7 +12,6 @@ clientsRoutes.post(
       fullName: Joi.string().required(),
       gender: Joi.string().required(),
       birthDate: Joi.date().required(),
-      age: Joi.number().required(),
       cityLive: Joi.number().required(),
     },
   }),
@@ -20,5 +19,25 @@ clientsRoutes.post(
 );
 
 clientsRoutes.get('/', clientsController.index);
+
+clientsRoutes.put(
+  '/update/:idClient',
+  celebrate({
+    [Segments.BODY]: {
+      fullName: Joi.string(),
+      gender: Joi.string(),
+      birthDate: Joi.date(),
+      cityLive: Joi.number(),
+    },
+  }),
+
+  clientsController.update,
+);
+
+clientsRoutes.delete('/remove/:id', celebrate({
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.number().required(),
+  }),
+}), clientsController.delete);
 
 export default clientsRoutes;

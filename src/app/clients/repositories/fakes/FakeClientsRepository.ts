@@ -44,10 +44,28 @@ class FakeClientsRepository implements IClientsRepository {
         clientsList[0] = this.clients.find(
           (client:any) => client.fullName.includes(nameClient) && client.id === idClient,
         );
+      } else if (nameClient) {
+        clientsList[0] = this.clients.find(
+          (client:any) => client.fullName.includes(nameClient),
+        );
+      } else if (idClient) {
+        clientsList[0] = this.clients.find(
+          (client:any) => client.id === idClient,
+        );
       }
     }
 
     return clientsList;
+  }
+
+  removeClient(id: number): Promise<void> {
+    const findIndex = this.clients.findIndex(
+      (findClient: { id: number; }) => findClient.id === id,
+    );
+
+    this.clients.splice(findIndex, 1);
+
+    return this.clients;
   }
 }
 

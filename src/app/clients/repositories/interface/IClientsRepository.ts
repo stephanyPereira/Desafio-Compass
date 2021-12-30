@@ -14,5 +14,6 @@ export default interface IClientsRepository {
   }: IClients): Promise<Clients>;
   save(clients: Clients) : Promise<Clients>;
   findClients(nameClient?: string, idClient?: number): Promise<any>;
+  removeClient(id:number): Promise<void>;
   // eslint-disable-next-line semi
 }

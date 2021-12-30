@@ -30,7 +30,6 @@ describe('ListClientsService', () => {
       fullName: 'Stephany dos Santos Pereira',
       gender: 'Feminino',
       birthDate: new Date(2000, 2, 18),
-      age: 21,
       cityLive: 1,
     });
 
@@ -49,7 +48,6 @@ describe('ListClientsService', () => {
       fullName: 'Stephany dos Santos Pereira',
       gender: 'Feminino',
       birthDate: new Date(2000, 2, 18),
-      age: 21,
       cityLive: 1,
     });
     await expect(listClientService.execute(undefined, 2)).rejects.toBeInstanceOf(AppError);
@@ -65,7 +63,6 @@ describe('ListClientsService', () => {
       fullName: 'Stephany dos Santos Pereira',
       gender: 'Feminino',
       birthDate: new Date(2000, 2, 18),
-      age: 21,
       cityLive: 1,
     });
     await expect(listClientService.execute('Marcelo', undefined)).rejects.toBeInstanceOf(AppError);
