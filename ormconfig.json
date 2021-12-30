@@ -6,7 +6,7 @@
   "password": "docker",
   "database": "desafioCompasso",
   "migrations": [
-    "./src/database/migrations/*.ts"    
+    "./src/database/migrations/*.ts"
   ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
