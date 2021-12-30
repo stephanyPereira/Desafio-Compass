@@ -1,8 +1,10 @@
+/* eslint-disable eqeqeq */
 import { inject, injectable } from 'tsyringe';
 import { startOfHour } from 'date-fns';
 import AppError from '../../../errors/AppError';
 import calcularIdade from '../../../utils/calculateAge';
 import IClientsRepository from '../repositories/interface/IClientsRepository';
+import ICitiesRepository from '../../cities/repositories/interface/ICitiesRepository';
 
 interface IRequest {
   idClient: number;
@@ -17,6 +19,8 @@ class UpdateClientsService {
   constructor(
     @inject('ClientsRepository')
     private clientsRepository: IClientsRepository,
+    @inject('CitiesRepository')
+    private citiesRepository: ICitiesRepository,
   ) {}
 
   public async execute({
@@ -43,6 +47,10 @@ class UpdateClientsService {
     }
 
     if (cityLive) {
+      const findCity = await this.citiesRepository.findCityById(cityLive);
+      if (findCity.length == 0) {
+        throw new AppError('Cidade não encontrada');
+      }
       client[0].cityLive = cityLive;
     }
 

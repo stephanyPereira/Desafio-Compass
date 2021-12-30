@@ -59,7 +59,8 @@
           "description": "Nome do Estado ou parte do mesmo",
           "schema": {
             "type": "string"
-          }
+          },
+          "example": "Rio Grande"
         }
       ],
       "get": {
@@ -225,7 +226,19 @@
             "content": {
               "application/json": {
                 "example": {
+                  "status": "error",
                   "message": "Estado não encontrado. Por favor verifique o que foi enviado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
                 }
               }
             }
@@ -301,7 +314,19 @@
             "content": {
               "application/json": {
                 "example": {
+                  "status": "error",
                   "message": "Cidade: PORTO ALEGRE já está cadastrada para o estado: RS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
                 }
               }
             }
@@ -317,7 +342,8 @@
           "description": "Nome da Cidade ou parte do mesmo",
           "schema": {
             "type": "string"
-          }
+          },
+          "example":  "Porto Ale"
         },
         {
           "name": "state",
@@ -325,7 +351,8 @@
           "description": "Nome do Estado ou parte do mesmo",
           "schema": {
             "type": "string"
-          }
+          },
+          "example": "Rio"
         }
       ],
       "get": {
@@ -354,7 +381,418 @@
             "content": {
               "application/json": {
                 "example": {
-                  "message": "Nenhum resultado foi encontrado para está pesquisa"
+                  "status": "error",
+                  "message": "Nenhum resultado foi encontrado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/create": {
+      "post": {
+        "tags": ["Clients"],
+        "summary": "Adcionar uma novo cliente",
+        "description": "Adicionar uma novo cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "birthDate": {
+                    "type": "string"
+                  },
+                  "cityLive": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "fullName": "Stephany dos Santos Pereira",
+                "gender": "Feminino",
+                "birthDate": "2000-12-31",
+                "cityLive": 2
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mostra o cliente adicionado e retorna a idade do mesmo e uma mensagem de sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "gender":{
+                          "type": "string"
+                        },
+                        "birthDate": {
+                          "type": "string"
+                        },
+                        "age": {
+                          "type": "integer"
+                        },
+                        "cityLive": {
+                          "type": "integer"
+                        },
+                        "id": {
+                          "type": "integer"
+                        },
+                        "createdAt":{
+                          "type": "string"
+                        },
+                        "updatedAt": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "client": {
+                    "fullName": "STEPHANY DOS SANTOS PEREIRA",
+                    "gender": "FEMININO",
+                    "birthDate": "2000-12-31T00:00:00.000Z",
+                    "age": 20,
+                    "cityLive": 2,
+                    "id": 1,
+                    "createdAt": "2021-12-30T17:47:37.710Z",
+                    "updatedAt": "2021-12-30T17:47:37.710Z"
+                  },
+                  "message": "Cliente cadastrado com sucesso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Cidade não encontrada"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "/clients/{nameClient}&{idClient}": {
+      "parameters": [
+        {
+          "name": "nameClient",
+          "in": "path",
+          "description": "Nome do Cliente ou parte do mesmo",
+          "example": "Ste",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "idClient",
+          "in": "path",
+          "description": "Id do cliente",
+          "example": 1,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "tags": ["Clients"],
+        "summary": "Listar os Clientes cadastrados",
+        "description": "Listar os Clientes cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista dos Clientes",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 1,
+                    "fullName": "STEPHANY DOS SANTOS PEREIRA",
+                    "gender": "FEMININO",
+                    "birthDate": "2000-12-30T02:00:00.000Z",
+                    "age": 20,
+                    "cities": {
+                        "id": 2,
+                        "nameCity": "XANGRI-LA",
+                        "state": {
+                            "id": 23,
+                            "nameState": "RIO GRANDE DO SUL",
+                            "acronyms": "RS"
+                        }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Nenhum dado foi encontrado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/update/:id": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id do Cliente que deseja alterar",
+          "required": true,
+          "example": 1,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "tags": [
+          "Clients"
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "gender": {
+                    "type": "string"
+                  },
+                  "birthDate": {
+                    "type": "string"
+                  },
+                  "cityLive": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "cityLive": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Mostra o cliente atualizado e uma mensagem de sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clientsList": {
+                      "type": "array",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "fullName":{
+                          "type": "string"
+                        },
+                        "gender": {
+                          "type": "string"
+                        },
+                        "birthDate": {
+                          "type": "string"
+                        },
+                        "age": {
+                          "type": "integer"
+                        },
+                        "cities": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "nameCity":{
+                              "type": "string"
+                            },
+                            "state" : {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "nameState": {
+                                  "type": "string"
+                                },
+                                "acronyms": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "clientsList": [
+                    {
+                        "id": 3,
+                        "fullName": "STEPHANY DOS SANTOS PEREIRA",
+                        "gender": "FEMININO",
+                        "birthDate": "2000-03-17T03:00:00.000Z",
+                        "age": 21,
+                        "cities": {
+                            "id": 1,
+                            "nameCity": "PORTO ALEGRE",
+                            "state": {
+                                "id": 23,
+                                "nameState": "RIO GRANDE DO SUL",
+                                "acronyms": "RS"
+                            }
+                        }
+                    }
+                  ],
+                  "message": "Cliente atualizado com sucesso"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Cliente não encontrado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clients/remove/:id": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id do Cliente que deseja remover",
+          "required": true,
+          "example": 1,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Clients"
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorna uma mensagem de sucesso",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Cliente: STEPHANY DOS SANTOS PEREIRA removido com sucesso"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+              "message": "Cliente não encontrado"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Retorna uma mensagem de erro",
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "error",
+                  "message": "Internal server error"
                 }
               }
             }

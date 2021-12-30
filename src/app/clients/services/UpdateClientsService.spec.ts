@@ -17,8 +17,9 @@ describe('UpdateClientsService', () => {
     fakeCitiesRepository = new FakeCitiesRepository();
     createdClientService = new CreateClientsService(fakeClientsRepository, fakeCitiesRepository);
     createCitiesServices = new CreateCitiesService(fakeCitiesRepository);
-    updateCitiesServices = new UpdateCitiesService(fakeClientsRepository);
+    updateCitiesServices = new UpdateCitiesService(fakeClientsRepository, fakeCitiesRepository);
   });
+
   it('must be able to update the client', async () => {
     await createCitiesServices.execute({
       name: 'Porto Alegre',
@@ -41,6 +42,24 @@ describe('UpdateClientsService', () => {
   it('should be able to return an error if it can\'t find the client.', async () => {
     await expect(updateCitiesServices.execute({
       idClient: 1, fullName: 'Stephany dos Santos Pereira', gender: 'Feminino', birthDate: new Date(2000, 7, 18), cityLive: 1,
+    })).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should be able to return an error if it can\'t find the city', async () => {
+    await createCitiesServices.execute({
+      name: 'Porto Alegre',
+      stateId: 23,
+    });
+
+    const client = await createdClientService.execute({
+      fullName: 'Stephany dos Santos Pereira',
+      gender: 'Feminino',
+      birthDate: new Date(2000, 2, 18),
+      cityLive: 1,
+    });
+
+    await expect(updateCitiesServices.execute({
+      idClient: client.client.id, fullName: 'Stephany dos Santos Pereira', gender: 'Feminino', birthDate: new Date(2000, 7, 18), cityLive: 10,
     })).rejects.toBeInstanceOf(AppError);
   });
 });

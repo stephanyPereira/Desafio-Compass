@@ -229,7 +229,9 @@ class FakeCitiesRepository implements ICitiesRepository {
     const town = [];
 
     if (this.cities.length > 0) {
-      town[0] = this.cities.find((city:Cities) => city.id === cityId);
+      if (this.cities.find((city:Cities) => city.id === cityId)) {
+        town[0] = this.cities.find((city:Cities) => city.id === cityId);
+      }
     }
 
     return town;
