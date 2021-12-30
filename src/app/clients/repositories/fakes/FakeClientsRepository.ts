@@ -41,19 +41,22 @@ class FakeClientsRepository implements IClientsRepository {
 
     if (this.clients.length > 0) {
       if (nameClient && idClient) {
-        if (this.clients.find((client:Clients) => client.fullName.includes(nameClient) && client.id === idClient)) {
+        if (this.clients.find(
+          (client:Clients) => client.fullName.includes(nameClient) && client.id === idClient,
+        )
+        ) {
           clientsList[0] = this.clients.find(
             (client:Clients) => client.fullName.includes(nameClient) && client.id === idClient,
           );
         }
       } else if (nameClient) {
-        if(this.clients.find((client:Clients) => client.fullName.includes(nameClient))) {
+        if (this.clients.find((client:Clients) => client.fullName.includes(nameClient))) {
           clientsList[0] = this.clients.find(
             (client:Clients) => client.fullName.includes(nameClient),
           );
         }
       } else if (idClient) {
-        if(this.clients.find((client:Clients) => client.id === idClient)) {
+        if (this.clients.find((client:Clients) => client.id === idClient)) {
           clientsList[0] = this.clients.find(
             (client:Clients) => client.id === idClient,
           );
@@ -69,7 +72,7 @@ class FakeClientsRepository implements IClientsRepository {
       (findClient: { id: number; }) => findClient.id === id,
     );
 
-    if(!findIndex) {
+    if (!findIndex) {
       return undefined;
     }
 

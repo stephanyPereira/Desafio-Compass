@@ -32,7 +32,7 @@ class ListClientsService {
     const clientsList: any = [];
     const clients = await this.clientsRepository.findClients(nameClient?.toUpperCase(), idClient);
 
-    if(clients.length === 0) {
+    if (clients.length === 0) {
       throw new AppError('Nenhum dado foi encontrado');
     }
 

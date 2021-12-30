@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DeleteResult, EntityRepository, getRepository, Repository } from 'typeorm';
+import {
+  EntityRepository, getRepository, Repository,
+} from 'typeorm';
 import Clients from '../models/Clients';
 
 interface IClients {
@@ -75,8 +77,7 @@ class ClientsRepository {
     const result = await this.ormRepository.createQueryBuilder().delete().from(Clients).where(`id = ${id}`)
       .execute();
 
-      return result.affected
-
+    return result.affected;
   }
 }
 

@@ -10,7 +10,7 @@ export default class CitiesController {
     const createdCity = container.resolve(CreateCitiesService);
 
     const city = await createdCity.execute({
-      nameCity,
+      name: nameCity,
       stateId,
     });
 
