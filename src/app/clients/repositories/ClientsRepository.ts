@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { DeleteResult, EntityRepository, getRepository, Repository } from 'typeorm';
 import Clients from '../models/Clients';
 
 interface IClients {
@@ -46,7 +46,7 @@ class ClientsRepository {
     return result;
   }
 
-  async findClients(nameClient: string, idClient: number): Promise<IReturnClient[]
+  async findClients(nameClient?: string, idClient?: number): Promise<IReturnClient[]
   > {
     const getFilters = (filters: any): any => {
       let query = '';
@@ -71,11 +71,12 @@ class ClientsRepository {
     return client;
   }
 
-  async removeClient(id: number): Promise<void> {
-    const client = await this.ormRepository.createQueryBuilder().delete().from(Clients).where(`id = ${id}`)
+  async removeClient(id: number): Promise<number|null|undefined> {
+    const result = await this.ormRepository.createQueryBuilder().delete().from(Clients).where(`id = ${id}`)
       .execute();
 
-    console.log(client);
+      return result.affected
+
   }
 }
 

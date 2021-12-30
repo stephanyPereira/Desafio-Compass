@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('states')
-class Cities {
+class States {
   @PrimaryGeneratedColumn('increment')
     id: number;
 
@@ -12,4 +12,4 @@ class Cities {
     name: string;
 }
 
-export default Cities;
+export default States;

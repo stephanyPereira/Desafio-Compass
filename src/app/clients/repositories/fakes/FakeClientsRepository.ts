@@ -10,7 +10,7 @@ interface IClients {
 }
 
 class FakeClientsRepository implements IClientsRepository {
-  private clients: any = [];
+  private clients: any[] = [];
 
   async create({
     fullName, gender, birthDate, age, cityLive,
@@ -36,36 +36,46 @@ class FakeClientsRepository implements IClientsRepository {
     return client;
   }
 
-  findClients(nameClient?: string, idClient?: number): Promise<any> {
+  async findClients(nameClient?: string, idClient?: number): Promise<any> {
     const clientsList: any = [];
 
     if (this.clients.length > 0) {
       if (nameClient && idClient) {
-        clientsList[0] = this.clients.find(
-          (client:any) => client.fullName.includes(nameClient) && client.id === idClient,
-        );
+        if (this.clients.find((client:Clients) => client.fullName.includes(nameClient) && client.id === idClient)) {
+          clientsList[0] = this.clients.find(
+            (client:Clients) => client.fullName.includes(nameClient) && client.id === idClient,
+          );
+        }
       } else if (nameClient) {
-        clientsList[0] = this.clients.find(
-          (client:any) => client.fullName.includes(nameClient),
-        );
+        if(this.clients.find((client:Clients) => client.fullName.includes(nameClient))) {
+          clientsList[0] = this.clients.find(
+            (client:Clients) => client.fullName.includes(nameClient),
+          );
+        }
       } else if (idClient) {
-        clientsList[0] = this.clients.find(
-          (client:any) => client.id === idClient,
-        );
+        if(this.clients.find((client:Clients) => client.id === idClient)) {
+          clientsList[0] = this.clients.find(
+            (client:Clients) => client.id === idClient,
+          );
+        }
       }
     }
 
     return clientsList;
   }
 
-  removeClient(id: number): Promise<void> {
+  async removeClient(id: number): Promise<number|null|undefined> {
     const findIndex = this.clients.findIndex(
       (findClient: { id: number; }) => findClient.id === id,
     );
 
-    this.clients.splice(findIndex, 1);
+    if(!findIndex) {
+      return undefined;
+    }
 
-    return this.clients;
+    const splice = this.clients.splice(findIndex, 1);
+
+    return splice ? splice.length : null;
   }
 }
 

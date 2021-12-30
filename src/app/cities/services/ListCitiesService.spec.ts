@@ -24,12 +24,12 @@ describe('ListCitiesService', () => {
 
   it('should be able to return an array containing the cities found in via like', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
     await createCitiesServices.execute({
-      nameCity: 'Imbé',
+      name: 'Imbé',
       stateId: 23,
     });
 
@@ -39,12 +39,12 @@ describe('ListCitiesService', () => {
 
   it('should be able to return a message if you can\'t find the city in that state', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
     await createCitiesServices.execute({
-      nameCity: 'Rio Branco',
+      name: 'Rio Branco',
       stateId: 1,
     });
 
@@ -53,12 +53,12 @@ describe('ListCitiesService', () => {
 
   it('should be able to return an array containing the states found in via like', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
     await createCitiesServices.execute({
-      nameCity: 'Rio Branco',
+      name: 'Rio Branco',
       stateId: 1,
     });
 

@@ -1,25 +1,16 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/naming-convention */
+import States from '../../../states/models/States';
+import ICreateCityDTO from '../../dtos/ICreateCityDTO';
+import IListCityAndStateDTO from '../../dtos/IListCityAndStateDTO';
 import Cities from '../../models/Cities';
 import ICitiesRepository from '../interface/ICitiesRepository';
 
-interface Request {
-  name: string;
-  stateId: number;
-}
-
-interface findByCityAndState {
-  id: number;
-  nameCity: string;
-  acronyms: string;
-  nameState: string;
-}
-
 class FakeCitiesRepository implements ICitiesRepository {
-  private cities: any = [];
+  private cities: any[] = [];
 
-  private states: any = [{
+  private states: any[] = [{
     id: 1,
     acronyms: 'AC',
     name: 'ACRE',
@@ -160,15 +151,15 @@ class FakeCitiesRepository implements ICitiesRepository {
     name: 'EXTERIOR',
   }];
 
-  async findByCityAndState({ name, stateId }: Request): Promise<findByCityAndState[]> {
+  async findByCityAndState({ name, stateId }: ICreateCityDTO): Promise<IListCityAndStateDTO[]> {
     const cityAndState = [];
 
     const town = [];
     const state = [];
 
     if (this.cities.length > 0) {
-      town[0] = this.cities.find((city:any) => city.name === name && city.stateId === stateId);
-      state[0] = this.states.find((s:any) => s.id === stateId);
+      town[0] = this.cities.find((city:Cities) => city.name === name && city.stateId === stateId);
+      state[0] = this.states.find((s:States) => s.id === stateId);
 
       if (town[0] !== undefined && town.length > 0) {
         cityAndState[0] = {
@@ -183,7 +174,7 @@ class FakeCitiesRepository implements ICitiesRepository {
     return cityAndState;
   }
 
-  async listCityAndState(cityName: string, stateName: string): Promise<any> {
+  async listCityAndState(cityName: string, stateName: string): Promise<IListCityAndStateDTO[]> {
     const citiesSelected = [];
 
     const town: any[] = [];
@@ -191,10 +182,10 @@ class FakeCitiesRepository implements ICitiesRepository {
 
     if (this.cities.length > 0) {
       if (cityName.length > 0 && stateName.length === 0) {
-        town[0] = this.cities.find((city:any) => city.name.includes(cityName));
+        town[0] = this.cities.find((city:Cities) => city.name.includes(cityName));
         if (town.length > 0) {
           for (let i = 0; i < town.length; i++) {
-            state[i] = this.states.find((s:any) => s.id == town[0].stateId);
+            state[i] = this.states.find((s:States) => s.id == town[0].stateId);
             citiesSelected[i] = {
               id: town[i].id,
               nameCity: town[i].name,
@@ -203,10 +194,10 @@ class FakeCitiesRepository implements ICitiesRepository {
           }
         }
       } else if (cityName.length === 0 && stateName.length > 0) {
-        state[0] = this.states.find((s:any) => s.name.includes(stateName));
+        state[0] = this.states.find((s:States) => s.name.includes(stateName));
         if (state.length > 0) {
           for (let i = 0; i < state.length; i++) {
-            town[i] = this.cities.find((city:any) => city.stateId == state[0].id);
+            town[i] = this.cities.find((city:Cities) => city.stateId == state[0].id);
             if (town.length > 0) {
               citiesSelected[i] = {
                 id: town[i].id,
@@ -217,10 +208,10 @@ class FakeCitiesRepository implements ICitiesRepository {
           }
         }
       } else if (town.length > 0 && state.length > 0) {
-        town[0] = this.cities.find((city:any) => city.name.includes(cityName));
+        town[0] = this.cities.find((city:Cities) => city.name.includes(cityName));
         if (town.length > 0) {
           for (let i = 0; i < town.length; i++) {
-            state[i] = this.states.find((s:any) => s.id == town[i].statedId);
+            state[i] = this.states.find((s:States) => s.id == town[i].statedId);
             citiesSelected[i] = {
               id: town[i].id,
               nameCity: town[i].name,
@@ -238,13 +229,13 @@ class FakeCitiesRepository implements ICitiesRepository {
     const town = [];
 
     if (this.cities.length > 0) {
-      town[0] = this.cities.find((city:any) => city.id === cityId);
+      town[0] = this.cities.find((city:Cities) => city.id === cityId);
     }
 
     return town;
   }
 
-  async create({ name, stateId }: Request): Promise<Cities> {
+  async create({ name, stateId }: ICreateCityDTO): Promise<Cities> {
     const city = new Cities();
 
     Object.assign(city, { id: this.cities.length + 1 }, { name, stateId });
@@ -254,7 +245,7 @@ class FakeCitiesRepository implements ICitiesRepository {
     return city;
   }
 
-  async save(city: Cities) : Promise<Cities> {
+  async save(city: Cities): Promise<Cities> {
     const findIndex = this.cities.findIndex((findCity: { id: number; }) => findCity.id === city.id);
 
     this.cities[findIndex] = city;

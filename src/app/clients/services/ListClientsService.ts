@@ -32,27 +32,27 @@ class ListClientsService {
     const clientsList: any = [];
     const clients = await this.clientsRepository.findClients(nameClient?.toUpperCase(), idClient);
 
-    if (clients.length > 0) {
-      for (let i = 0; i < clients.length; i++) {
-        clientsList[i] = {
-          id: clients[i].id,
-          fullName: clients[i].fullName,
-          gender: clients[i].gender,
-          birthDate: clients[i].birthDate,
-          age: clients[i].age,
-          cities: {
-            id: clients[i].cityLive,
-            nameCity: clients[i].namecity,
-            state: {
-              id: clients[i].stateId,
-              nameState: clients[i].namestate,
-              acronyms: clients[i].acronyms,
-            },
-          },
-        };
-      }
-    } else {
+    if(clients.length === 0) {
       throw new AppError('Nenhum dado foi encontrado');
+    }
+
+    for (let i = 0; i < clients.length; i++) {
+      clientsList[i] = {
+        id: clients[i].id,
+        fullName: clients[i].fullName,
+        gender: clients[i].gender,
+        birthDate: clients[i].birthDate,
+        age: clients[i].age,
+        cities: {
+          id: clients[i].cityLive,
+          nameCity: clients[i].namecity,
+          state: {
+            id: clients[i].stateId,
+            nameState: clients[i].namestate,
+            acronyms: clients[i].acronyms,
+          },
+        },
+      };
     }
 
     return clientsList;

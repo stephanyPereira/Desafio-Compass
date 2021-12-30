@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { injectable, inject } from 'tsyringe';
 import AppError from '../../../errors/AppError';
-import States from '../models/States';
+import IListStatesDTO from '../dtos/IListStatesDTO';
 import StatesRepository from '../repositories/StatesRepository';
-
-interface StateReturn {
-  state?: States[];
-  message?: string;
-}
 
 @injectable()
 class ListSatesService {
@@ -16,7 +10,7 @@ class ListSatesService {
     private statesRepository: StatesRepository,
   ) {}
 
-  public async execute(nameState: string): Promise<StateReturn> {
+  public async execute(nameState: string): Promise<IListStatesDTO> {
     const state = await this.statesRepository.findStates(nameState.toUpperCase());
 
     if (state.length === 0) {

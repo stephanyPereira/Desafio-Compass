@@ -19,7 +19,7 @@ describe('CreateClientsService', () => {
 
   it('should be able to create a new client', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 

@@ -1,28 +1,13 @@
 /* eslint-disable @typescript-eslint/no-extra-semi */
-/* eslint-disable @typescript-eslint/naming-convention */
+import ICreateCityDTO from '../../dtos/ICreateCityDTO';
+import IListCityAndStateDTO from '../../dtos/IListCityAndStateDTO';
 import Cities from '../../models/Cities';
 
-interface Request {
-  name: string;
-  stateId: number;
-}
-interface findByCityAndState {
-  id: number;
-  nameCity: string;
-  acronyms: string;
-  nameState: string;
-}
-interface listCityAndState {
-  id: number;
-  nameCity: string;
-  nameState: string;
-}
-
 export default interface ICitiesRepository {
-  findByCityAndState({ name, stateId }: Request): Promise<findByCityAndState[]>;
-  listCityAndState(city: string, state: string): Promise<listCityAndState[]>;
+  findByCityAndState({ name, stateId }: ICreateCityDTO): Promise<IListCityAndStateDTO[]>;
+  listCityAndState(city: string, state: string): Promise<IListCityAndStateDTO[]>;
   findCityById(cityId: number): Promise<Cities[]>;
-  create({ name, stateId }: Request): Promise<Cities>;
+  create({ name, stateId }: ICreateCityDTO): Promise<Cities>;
   save(city: Cities) : Promise<Cities>;
 // eslint-disable-next-line semi
 };

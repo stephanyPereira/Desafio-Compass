@@ -2,6 +2,10 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '../../../errors/AppError';
 import IClientsRepository from '../repositories/interface/IClientsRepository';
 
+interface IReturnClient {
+  message: string;
+}
+
 @injectable()
 class RemoveClientsService {
   constructor(
@@ -9,7 +13,7 @@ class RemoveClientsService {
     private clientsRepository: IClientsRepository,
   ) {}
 
-  public async execute(id: number): Promise<any> {
+  public async execute(id: number): Promise<IReturnClient> {
     const client = await this.clientsRepository.findClients(undefined, id);
 
     if (client.length === 0) {

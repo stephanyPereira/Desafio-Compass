@@ -21,7 +21,7 @@ describe('UpdateClientsService', () => {
   });
   it('must be able to update the client', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 

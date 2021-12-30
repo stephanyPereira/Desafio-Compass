@@ -13,7 +13,7 @@ describe('CreateCitiesService', () => {
 
   it('should be able to create a new city', async () => {
     const city = await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
@@ -23,12 +23,12 @@ describe('CreateCitiesService', () => {
 
   it('should be able to return an error if the city is already registered for that state', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
     await expect(createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     })).rejects.toBeInstanceOf(AppError);
   });

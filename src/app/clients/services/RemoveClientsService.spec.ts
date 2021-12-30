@@ -20,7 +20,7 @@ describe('RemoveClientsService', () => {
     removeClientsServices = new RemoveClientsService(fakeClientsRepository);
 
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 

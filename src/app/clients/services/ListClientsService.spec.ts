@@ -22,7 +22,7 @@ describe('ListClientsService', () => {
 
   it('must be able to return the list with clients', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
@@ -40,7 +40,7 @@ describe('ListClientsService', () => {
 
   it('must be able to return a message if the data cannot be found in the database v1', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
@@ -55,7 +55,7 @@ describe('ListClientsService', () => {
 
   it('must be able to return a message if the data cannot be found in the database v2', async () => {
     await createCitiesServices.execute({
-      nameCity: 'Porto Alegre',
+      name: 'Porto Alegre',
       stateId: 23,
     });
 
